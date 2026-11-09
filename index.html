@@ -94,6 +94,9 @@ h2{font-size:clamp(1.6rem,4vw,2.1rem);margin:0 0 8px;font-weight:800;font-stretc
 @media (prefers-color-scheme:dark){.item[data-regiao="Jabaquara"] .tag{color:var(--sinal)}.tag{color:#8fb6ee}}
 .item p{margin:0 0 6px;font-size:.95rem}
 .item .tipo{color:var(--suave);font-size:.9rem}
+.ativ{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ativ span{font-size:.82rem;padding:4px 10px;border-radius:8px;background:var(--fundo);border:1px solid var(--borda)}
+.ativ .vazia{color:var(--suave);font-style:italic;border-style:dashed}
 .acoes{display:flex;gap:8px;margin-top:auto;padding-top:14px}
 .acoes a,.acoes button{flex:1;text-align:center;font:inherit;font-size:.92rem;font-weight:700;padding:10px 12px;border-radius:10px;border:2px solid var(--quadra);background:transparent;color:var(--texto);text-decoration:none;cursor:pointer}
 .acoes button{background:var(--quadra);color:#fff}
@@ -197,11 +200,14 @@ const FORM_URL = "";
 
 // Para acrescentar um local, copie uma linha e troque os dados.
 // Antes de publicar, confirme horários e endereços por telefone ou indo ao local.
+// Campo opcional "atividades": lista de modalidades, ex.: atividades:["Futebol","Judô","Dança"]
+// Se ficar sem atividades, o site mostra "consulte o local".
 const LOCAIS = [
   { nome:"CDC Ferradura", tipo:"Clube da Comunidade", regiao:"Jabaquara", bairro:"Jardim Jabaquara",
     endereco:"Rua Adelino da Fontoura, 404, Jardim Jabaquara, São Paulo - SP, 04383-050", horario:"A confirmar" },
   { nome:"CT Paralímpico Brasileiro", tipo:"Esporte adaptado", regiao:"Jabaquara", bairro:"Jabaquara",
-    endereco:"CT Paralímpico Brasileiro, Jabaquara, São Paulo - SP", horario:"A confirmar" },
+    endereco:"Rodovia dos Imigrantes, km 11,5, Vila Guarani, São Paulo - SP, 04329-000", horario:"A confirmar",
+    atividades:["Escola Paralímpica de Esportes (gratuita, jovens de 7 a 17 anos)"] },
   { nome:"CDC Vila Missionária", tipo:"Clube da Comunidade", regiao:"Cidade Ademar", bairro:"Vila Missionária",
     endereco:"Rua Dom Frederico Costa, 71, Vila Missionária, São Paulo - SP, 04430-300", horario:"A confirmar" },
   { nome:"CDC Niterói", tipo:"Clube da Comunidade", regiao:"Cidade Ademar", bairro:"Jardim Maria Luiza",
@@ -262,12 +268,16 @@ function desenharLista(){
     const tp = document.createElement("p"); tp.className = "tipo"; tp.textContent = l.tipo;
     const e = document.createElement("p"); e.textContent = l.endereco;
     const h = document.createElement("p"); h.textContent = "Horário: " + l.horario;
+    const at = document.createElement("div"); at.className = "ativ";
+    const lista_at = (l.atividades && l.atividades.length) ? l.atividades : [];
+    if (lista_at.length){ lista_at.forEach(a => { const sp = document.createElement("span"); sp.textContent = a; at.appendChild(sp); }); }
+    else { const sp = document.createElement("span"); sp.className = "vazia"; sp.textContent = "Atividades: consulte o local"; at.appendChild(sp); }
     const ac = document.createElement("div"); ac.className = "acoes";
     const bm = document.createElement("button"); bm.type = "button"; bm.textContent = "Ver no mapa"; bm.onclick = () => mostrarNoMapa(l);
     const ch = document.createElement("a"); ch.textContent = "Como chegar"; ch.target = "_blank"; ch.rel = "noopener";
     ch.href = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(l.endereco);
     ac.append(bm, ch);
-    el.append(ic, t, tag, tp, e, h, ac);
+    el.append(ic, t, tag, tp, e, h, at, ac);
     lista.appendChild(el);
   });
 }
