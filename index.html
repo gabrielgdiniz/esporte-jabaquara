@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Esporte e bem-estar no Jabaquara e região</title>
+<meta name="description" content="Encontre espaços públicos de esporte e bem-estar perto de você: clubes da comunidade, centros esportivos e mais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --quadra:#1b4b8f; --quadra-2:#133a72; --quadra-3:#0e2b56; --sinal:#ffc933; --verde:#1f9d6b;
+  --fundo:#eef3f9; --card:#ffffff; --texto:#10213a; --suave:#566a85; --borda:#d6e0ee; --sombra:0 6px 22px rgba(16,33,58,.08);
+  --fonte:'Archivo','Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--fundo:#0b1322;--card:#14213a;--texto:#e9eff8;--suave:#9db0c9;--borda:#25395a;--sombra:0 6px 22px rgba(0,0,0,.35)}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--fundo);color:var(--texto);font-family:var(--fonte);line-height:1.55;font-size:17px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sinal);outline-offset:2px}
+
+/* Barra superior */
+.topo{position:sticky;top:0;z-index:20;background:var(--quadra-3);color:#fff}
+.topo .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.marca{font-weight:800;font-stretch:112%;display:flex;align-items:center;gap:10px;text-decoration:none}
+.bola{width:22px;height:22px;border-radius:50%;background:var(--sinal);position:relative;flex:none}
+.bola::before,.bola::after{content:"";position:absolute;inset:3px;border:2px solid var(--quadra-3);border-radius:50%;clip-path:inset(0 50% 0 0)}
+.bola::after{transform:scaleX(-1)}
+.topo nav{display:flex;gap:18px;font-size:.95rem}
+.topo nav a{text-decoration:none;color:#cfdcf0;padding:4px 2px}
+.topo nav a:hover{color:#fff}
+
+/* Hero */
+.hero{background:var(--quadra);color:#fff;position:relative;overflow:hidden;padding:72px 0 110px}
+.hero svg{position:absolute;right:-60px;top:0;height:100%;width:auto;min-width:70%;opacity:.22}
+.hero .wrap{position:relative}
+.hero h1{font-size:clamp(2.3rem,7.5vw,4.6rem);line-height:1;margin:0 0 20px;font-weight:900;font-stretch:118%;letter-spacing:-.02em;max-width:13ch}
+.hero p{max-width:50ch;margin:0 0 30px;font-size:1.15rem;color:#dbe7f7}
+.btn{display:inline-block;background:var(--sinal);color:#1a1a1a;font:inherit;font-weight:800;text-decoration:none;padding:14px 26px;border-radius:999px;border:0;cursor:pointer;box-shadow:0 4px 0 #c99a0f}
+.btn:hover{transform:translateY(1px);box-shadow:0 3px 0 #c99a0f}
+.btn.sec{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.55);margin-left:10px}
+
+/* Números */
+.numeros{margin-top:-58px;position:relative;z-index:2}
+.numeros .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.num{background:var(--card);border-radius:14px;padding:18px 20px;box-shadow:var(--sombra);border-bottom:5px solid var(--sinal)}
+.num:nth-child(2){border-bottom-color:var(--verde)}
+.num:nth-child(3){border-bottom-color:var(--quadra)}
+.num b{display:block;font-size:2.2rem;font-weight:900;font-stretch:112%;line-height:1}
+.num span{color:var(--suave);font-size:.92rem}
+
+main{padding:56px 0 24px}
+section{margin-bottom:56px}
+h2{font-size:clamp(1.6rem,4vw,2.1rem);margin:0 0 8px;font-weight:800;font-stretch:110%;letter-spacing:-.01em}
+.sub{color:var(--suave);margin:0 0 24px;max-width:60ch}
+
+/* Passos */
+.passos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:p}
+.passo{background:var(--card);border-radius:14px;padding:20px;box-shadow:var(--sombra);position:relative}
+.passo::before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--quadra);color:#fff;font-weight:800;margin-bottom:10px}
+.passo b{display:block;margin-bottom:2px}
+.passo span{color:var(--suave);font-size:.95rem}
+
+/* Mapa */
+.mapa{border-radius:16px;overflow:hidden;background:var(--card);box-shadow:var(--sombra);border:1px solid var(--borda)}
+.mapa .barra{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--quadra-2);color:#fff;font-weight:600}
+.mapa .barra i{width:10px;height:10px;border-radius:50%;background:var(--sinal);flex:none}
+.mapa iframe{display:block;width:100%;height:420px;border:0}
+
+/* Filtros */
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{font:inherit;font-size:.95rem;font-weight:600;padding:8px 16px;border-radius:999px;border:2px solid var(--borda);background:var(--card);color:var(--texto);cursor:pointer}
+.chip:hover{border-color:var(--quadra)}
+.chip[aria-pressed="true"]{background:var(--quadra);border-color:var(--quadra);color:#fff}
+.busca{width:100%;font:inherit;padding:13px 18px;border:2px solid var(--borda);border-radius:999px;background:var(--card);color:var(--texto);margin-bottom:24px}
+.busca:focus{border-color:var(--quadra)}
+
+/* Cards */
+.lista{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.item{background:var(--card);border-radius:16px;padding:20px;box-shadow:var(--sombra);border:1px solid var(--borda);display:flex;flex-direction:column;position:relative;overflow:hidden}
+.item::before{content:"";position:absolute;left:0;top:0;right:0;height:6px;background:var(--quadra)}
+.item[data-regiao="Jabaquara"]::before{background:var(--sinal)}
+.item[data-regiao="Vila Mariana"]::before{background:var(--verde)}
+.icone{width:46px;height:46px;border-radius:12px;background:var(--fundo);display:grid;place-items:center;font-size:1.5rem;margin-bottom:12px}
+.item h3{margin:0 0 6px;font-size:1.18rem;font-weight:800}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--fundo);color:var(--quadra);margin:0 0 10px;align-self:flex-start}
+.item[data-regiao="Vila Mariana"] .tag{color:var(--verde)}
+.item[data-regiao="Jabaquara"] .tag{color:#9a6b00}
+@media (prefers-color-scheme:dark){.item[data-regiao="Jabaquara"] .tag{color:var(--sinal)}.tag{color:#8fb6ee}}
+.item p{margin:0 0 6px;font-size:.95rem}
+.item .tipo{color:var(--suave);font-size:.9rem}
+.acoes{display:flex;gap:8px;margin-top:auto;padding-top:14px}
+.acoes a,.acoes button{flex:1;text-align:center;font:inherit;font-size:.92rem;font-weight:700;padding:10px 12px;border-radius:10px;border:2px solid var(--quadra);background:transparent;color:var(--texto);text-decoration:none;cursor:pointer}
+.acoes button{background:var(--quadra);color:#fff}
+.acoes a:hover{background:var(--quadra);color:#fff}
+.acoes button:hover{background:var(--quadra-2)}
+.vazio{padding:28px;border:2px dashed var(--borda);border-radius:14px;color:var(--suave)}
+
+.aviso{padding:18px 20px;background:var(--card);border-left:6px solid var(--sinal);border-radius:10px;font-size:.95rem;box-shadow:var(--sombra)}
+.feedback{background:var(--quadra);color:#fff;border-radius:18px;padding:32px;text-align:center}
+.feedback h2{color:#fff}.feedback .sub{color:#dbe7f7;margin-inline:auto}
+footer{background:var(--quadra-3);color:#b9c9e0;font-size:.92rem;padding:34px 0}
+footer p{margin:0 0 8px}footer strong{color:#fff}
+@media (max-width:720px){
+  .numeros .wrap,.passos{grid-template-columns:1fr}
+  .numeros{margin-top:-44px}
+  .hero{padding:48px 0 90px}
+  .btn.sec{margin:10px 0 0}
+  .topo nav a:first-child{display:none}
+  .mapa iframe{height:320px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<div class="topo"><div class="wrap">
+  <a class="marca" href="#"><span class="bola"></span>Esporte no Jabaquara</a>
+  <nav><a href="#como">Como usar</a><a href="#mapa">Mapa</a><a href="#locais">Locais</a></nav>
+</div></div>
+
+<header class="hero">
+  <svg viewBox="0 0 800 520" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" fill="none" stroke="#fff" stroke-width="4">
+    <rect x="40" y="40" width="720" height="440" rx="6"/>
+    <line x1="400" y1="40" x2="400" y2="480"/>
+    <circle cx="400" cy="260" r="80"/>
+    <rect x="40" y="140" width="130" height="240"/>
+    <rect x="630" y="140" width="130" height="240"/>
+    <path d="M170 180 A80 80 0 0 1 170 340"/>
+    <path d="M630 180 A80 80 0 0 0 630 340"/>
+  </svg>
+  <div class="wrap">
+    <h1>Esporte e bem-estar perto de você</h1>
+    <p>Reunimos os espaços públicos do Jabaquara e arredores onde você pode se exercitar, se divertir e cuidar da saúde. Encontre o mais próximo da sua casa.</p>
+    <a class="btn" href="#mapa">Ver no mapa</a><a class="btn sec" href="#locais">Ver a lista</a>
+  </div>
+</header>
+
+<div class="numeros"><div class="wrap">
+  <div class="num"><b id="nLocais">0</b><span>locais reunidos</span></div>
+  <div class="num"><b id="nRegioes">0</b><span>regiões cobertas</span></div>
+  <div class="num"><b>1 toque</b><span>para ver a rota no celular</span></div>
+</div></div>
+
+<main class="wrap">
+  <section id="como" aria-labelledby="t-como">
+    <h2 id="t-como">Como usar</h2>
+    <p class="sub">Em três passos você encontra um lugar para começar.</p>
+    <div class="passos">
+      <div class="passo"><b>Escolha a região</b><span>Use os filtros ou busque pelo seu bairro.</span></div>
+      <div class="passo"><b>Veja no mapa</b><span>Toque em “Ver no mapa” e confira a distância até você.</span></div>
+      <div class="passo"><b>Confirme e vá</b><span>Ligue ou passe no local para saber horários e atividades.</span></div>
+    </div>
+  </section>
+
+  <section id="mapa" aria-labelledby="t-mapa">
+    <h2 id="t-mapa">Mapa dos locais</h2>
+    <p class="sub">O mapa mostra o local que você escolher na lista.</p>
+    <div class="mapa">
+      <div class="barra"><i></i><span id="legenda">Mostrando: Jabaquara, São Paulo</span></div>
+      <iframe id="mapaFrame" title="Mapa do local selecionado" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Jabaquara,+São+Paulo&output=embed"></iframe>
+    </div>
+  </section>
+
+  <section id="locais" aria-labelledby="t-lista">
+    <h2 id="t-lista">Locais para se exercitar</h2>
+    <p class="sub">Filtre por região ou procure pelo nome do local ou do bairro.</p>
+    <div class="filtros" id="filtros" role="group" aria-label="Filtrar por região"></div>
+    <input class="busca" id="busca" type="search" placeholder="Buscar por nome ou bairro" aria-label="Buscar por nome ou bairro">
+    <div class="lista" id="lista" aria-live="polite"></div>
+  </section>
+
+  <p class="aviso">Horários, atividades e regras de uso podem mudar. Antes de ir, confirme com o próprio local. Os Clubes da Comunidade são geridos por entidades locais, e a Secretaria Municipal de Esportes e Lazer divulga os contatos no site da Prefeitura.</p>
+
+  <section id="feedback" class="feedback" hidden style="margin-top:56px" aria-labelledby="t-fb">
+    <h2 id="t-fb">Ajude a melhorar este guia</h2>
+    <p class="sub">Responda 4 perguntas rápidas: você conhecia esses locais? O site foi útil? Falta algum espaço?</p>
+    <a class="btn" id="btnForm" href="#" target="_blank" rel="noopener">Responder o formulário</a>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p>Projeto de extensão universitária, curso de Análise e Desenvolvimento de Sistemas, Cruzeiro do Sul Virtual. Objetivo de Desenvolvimento Sustentável 3: saúde e bem-estar.</p>
+  <p>Autor(a): <strong>SEU NOME AQUI</strong> · Contato: <strong>seu-email@exemplo.com</strong></p>
+  <p>Fonte dos endereços: Secretaria Municipal de Esportes e Lazer da Prefeitura de São Paulo.</p>
+</div></footer>
+
+<script>
+/* ============ EDITE AQUI ============ */
+// Link do seu Google Forms (deixe vazio para esconder a seção de feedback)
+const FORM_URL = "";
+
+// Para acrescentar um local, copie uma linha e troque os dados.
+// Antes de publicar, confirme horários e endereços por telefone ou indo ao local.
+const LOCAIS = [
+  { nome:"CDC Ferradura", tipo:"Clube da Comunidade", regiao:"Jabaquara", bairro:"Jardim Jabaquara",
+    endereco:"Rua Adelino da Fontoura, 404, Jardim Jabaquara, São Paulo - SP, 04383-050", horario:"A confirmar" },
+  { nome:"CT Paralímpico Brasileiro", tipo:"Esporte adaptado", regiao:"Jabaquara", bairro:"Jabaquara",
+    endereco:"CT Paralímpico Brasileiro, Jabaquara, São Paulo - SP", horario:"A confirmar" },
+  { nome:"CDC Vila Missionária", tipo:"Clube da Comunidade", regiao:"Cidade Ademar", bairro:"Vila Missionária",
+    endereco:"Rua Dom Frederico Costa, 71, Vila Missionária, São Paulo - SP, 04430-300", horario:"A confirmar" },
+  { nome:"CDC Niterói", tipo:"Clube da Comunidade", regiao:"Cidade Ademar", bairro:"Jardim Maria Luiza",
+    endereco:"Rua Jurimanás, 82, Jardim Maria Luiza, São Paulo - SP, 04434-060", horario:"A confirmar" },
+  { nome:"CDC Cidade Ademar", tipo:"Clube da Comunidade", regiao:"Cidade Ademar", bairro:"Jardim Prudência",
+    endereco:"Rua Francisco Lopes Pinto, 557, Jardim Prudência, São Paulo - SP, 04649-110", horario:"A confirmar" },
+  { nome:"CDC Bolsa D’água", tipo:"Clube da Comunidade", regiao:"Vila Mariana", bairro:"Vila Mariana",
+    endereco:"Rua Santa Cruz, 1350, Vila Mariana, São Paulo - SP, 04122-000", horario:"A confirmar" },
+  { nome:"CDC Jorge Tibiriçá", tipo:"Clube da Comunidade", regiao:"Vila Mariana", bairro:"Vila Mariana",
+    endereco:"Rua Jorge Tibiriçá, 700, Vila Mariana, São Paulo - SP, 04126-001", horario:"A confirmar" },
+  { nome:"CDC Vila Clementino", tipo:"Clube da Comunidade", regiao:"Vila Mariana", bairro:"Vila Clementino",
+    endereco:"Rua Doutor Diogo de Faria, 1084, Vila Clementino, São Paulo - SP, 04037-003", horario:"A confirmar" }
+];
+/* ================================== */
+
+const $ = id => document.getElementById(id);
+const regioes = ["Todas", ...new Set(LOCAIS.map(l => l.regiao))];
+let regiaoAtual = "Todas";
+const icone = l => /adaptado/i.test(l.tipo) ? "♿" : "⚽";
+
+$("nLocais").textContent = LOCAIS.length;
+$("nRegioes").textContent = regioes.length - 1;
+
+function mostrarNoMapa(l){
+  $("mapaFrame").src = "https://www.google.com/maps?q=" + encodeURIComponent(l.endereco) + "&output=embed";
+  $("legenda").textContent = "Mostrando: " + l.nome;
+  $("mapa").scrollIntoView({behavior:"smooth"});
+}
+
+function desenharFiltros(){
+  $("filtros").innerHTML = "";
+  regioes.forEach(r => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = r;
+    b.setAttribute("aria-pressed", r === regiaoAtual);
+    b.onclick = () => { regiaoAtual = r; desenharFiltros(); desenharLista(); };
+    $("filtros").appendChild(b);
+  });
+}
+
+function desenharLista(){
+  const q = $("busca").value.trim().toLowerCase();
+  const itens = LOCAIS.filter(l =>
+    (regiaoAtual === "Todas" || l.regiao === regiaoAtual) &&
+    (l.nome + " " + l.bairro).toLowerCase().includes(q));
+  const lista = $("lista");
+  lista.innerHTML = "";
+  if (!itens.length){
+    lista.innerHTML = '<div class="vazio">Nenhum local encontrado. Tente outra região ou outro nome.</div>';
+    return;
+  }
+  itens.forEach(l => {
+    const el = document.createElement("article");
+    el.className = "item"; el.dataset.regiao = l.regiao;
+    const ic = document.createElement("div"); ic.className = "icone"; ic.textContent = icone(l); ic.setAttribute("aria-hidden","true");
+    const t = document.createElement("h3"); t.textContent = l.nome;
+    const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = l.regiao;
+    const tp = document.createElement("p"); tp.className = "tipo"; tp.textContent = l.tipo;
+    const e = document.createElement("p"); e.textContent = l.endereco;
+    const h = document.createElement("p"); h.textContent = "Horário: " + l.horario;
+    const ac = document.createElement("div"); ac.className = "acoes";
+    const bm = document.createElement("button"); bm.type = "button"; bm.textContent = "Ver no mapa"; bm.onclick = () => mostrarNoMapa(l);
+    const ch = document.createElement("a"); ch.textContent = "Como chegar"; ch.target = "_blank"; ch.rel = "noopener";
+    ch.href = "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(l.endereco);
+    ac.append(bm, ch);
+    el.append(ic, t, tag, tp, e, h, ac);
+    lista.appendChild(el);
+  });
+}
+
+if (FORM_URL){ $("btnForm").href = FORM_URL; $("feedback").hidden = false; }
+$("busca").addEventListener("input", desenharLista);
+desenharFiltros(); desenharLista();
+</script>
+</body>
+</html>
